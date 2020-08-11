@@ -26,8 +26,6 @@ env:
   rev: "nixos-unstable"
   # Register and use Cachix account
   cachixAccount: "haskell-with-nixpkgs"
-  # GitHub secret
-  CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
   allowInconsistentDependencies: "false"
   doJailbreak: "false"
   doCheck: "true"
@@ -72,6 +70,7 @@ jobs:
       uses: cachix/cachix-action@v6
       with:
         name: ${{ env.cachixAccount }}
+        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
     - name: Determined Nix-build
       env:
         # nixos-unstable is a nixpkgs-upstable that passed a number of upstream CI and quality checks, it is essentially a current branch while also receives stable updates fitting for our CI checkups with current Nixpkgs.
@@ -98,6 +97,7 @@ jobs:
       uses: cachix/cachix-action@v6
       with:
         name: ${{ env.cachixAccount }}
+        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
     - name: Determined Nix-build
       env:
         useRev: "true"
@@ -129,6 +129,7 @@ jobs:
       uses: cachix/cachix-action@v6
       with:
         name: ${{ env.cachixAccount }}
+        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
     - name: Determined Nix-build
       env:
         rev: "nixos-20.03"
@@ -149,6 +150,7 @@ jobs:
       uses: cachix/cachix-action@v6
       with:
         name: ${{ env.cachixAccount }}
+        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
     - name: Nix-shell
       run: nix-shell --pure --command 'echo "Evaluated, loaded and entered $IN_NIX_SHELL Nix shell env."'
     - name: Local Hoogle DB for the project development and tooling

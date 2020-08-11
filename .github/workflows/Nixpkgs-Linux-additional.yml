@@ -24,8 +24,6 @@ env:
   useRev: "true"
   rev: "nixos-unstable"
   cachixAccount: "haskell-with-nixpkgs"
-  # GitHub secret
-  CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
   linkWithGold: "true"
 
 
@@ -46,6 +44,7 @@ jobs:
       uses: cachix/cachix-action@v6
       with:
         name: ${{ env.cachixAccount }}
+        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
     - name: Determined Nix-build
       run: ./build.sh
 
@@ -64,5 +63,6 @@ jobs:
       uses: cachix/cachix-action@v6
       with:
         name: ${{ env.cachixAccount }}
+        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
     - name: Determined Nix-build
       run: ./build.sh
