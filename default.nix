@@ -80,7 +80,6 @@
 , withHoogle  ? true
 
 
-, useRev ? false
 # Nix by default updates and uses locally configured nixpkgs-unstable channel
 # Nixpkgs revision options:
 #   `rev` vals in order of freshness -> cache & stability:
@@ -92,16 +91,16 @@
 #   , nixos-20.03  # Last stable release, gets almost no updates to recipes, gets only required backports
 #   ...
 #   }
-, rev ? "nixpkgs-unstable"
+, rev ? "default"
 
 , pkgs ?
     if builtins.compareVersions builtins.nixVersion "2.0" < 0
     then abort "Requires Nix >= 2.0"
     else
-      if useRev
+      if ((rev == "") || (rev == "default") || (rev == "local"))
+        then import <nixpkgs> {}
         # Do not guard with hash, so the project is able to use current channels (rolling `rev`) of Nixpkgs
-        then import (builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/${rev}.tar.gz") {}
-        else import <nixpkgs> {}
+        else import (builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/${rev}.tar.gz") {}
       // {
         # Try to build dependencies even if they are marked broken.
         config.allowBroken = true;

@@ -10,14 +10,13 @@ on:
     - cron: "45 05 * * *"
 
 env:
-  useRev: "true"
   rev: "nixos-unstable"
   cachixAccount: "haskell-with-nixpkgs"
   linkWithGold: "true"
 
 jobs:
   build10:
-    name: Build
+    name: "NixOS-unstable build"
     runs-on: ubuntu-latest
     continue-on-error: true
     steps:

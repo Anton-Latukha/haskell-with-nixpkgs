@@ -18,11 +18,12 @@ env:
   ### NOTE: Table example of the provided build configuration keys
   ### Infrastructure uses `build.sh` API, which uses `default.nix` API, which exposes the almost literal Nixpkgs Haskell Lib API wich was abstracted for use outside of Nix language.
   ###
-  ### Documentation of this settings is mosly in `default.nix`, since most settings it Nixpkgs related
+  ### Documentation of this settings is mosly in `default.nix`, since most settings is Nixpkgs related
   ### and the other part of keys explained in `build.sh`, since those address external procedures aound the builds.
   ### Additional documentation is in Nixpkgs Haskell.lib: https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/haskell-modules/lib.nix
   ###
-  useRev: "true"
+  # nixos-unstable is a nixpkgs-upstable that passed a number of upstream CI and quality checks, it is essentially a current branch while also receives stable updates fitting for our CI checkups with current Nixpkgs.
+  # Note that Nix nature is purely functional lazy language, it is referentially transparent, reproducible (deterministic) builds, that means that just as in the type system - any the Nix build failures properly cascade through the Nixpkgs tree graph branch, so particular `master` broken checkouts would properly refuse/would not be able to build parts of Nixpkgs tree graph. So the Nix builds are pretty brittle, do not be ashamed to make Nixpkgs builds optional (`continue-on-error: true`), or set them to the latest stable NixOS Nixpkgs release.
   rev: "nixos-unstable"
   # Register and use Cachix account
   cachixAccount: "haskell-with-nixpkgs"
@@ -72,11 +73,6 @@ jobs:
         name: ${{ env.cachixAccount }}
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
     - name: Determined Nix-build
-      env:
-        # nixos-unstable is a nixpkgs-upstable that passed a number of upstream CI and quality checks, it is essentially a current branch while also receives stable updates fitting for our CI checkups with current Nixpkgs.
-        # Note that Nix nature is purely functional lazy language, it is referentially transparent, reproducible (deterministic) builds, that means that just as in the type system - any the Nix build failures properly cascade through the Nixpkgs tree graph branch, so particular `master` broken checkouts would properly refuse/would not be able to build parts of Nixpkgs tree graph. So the Nix builds are pretty brittle, do not be ashamed to make Nixpkgs builds optional (`continue-on-error: true`), or set them to the latest stable NixOS Nixpkgs release.
-        useRev: "true"
-        rev: "nixos-unstable"
       run: ./build.sh
 
 
@@ -100,8 +96,6 @@ jobs:
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
     - name: Determined Nix-build
       env:
-        useRev: "true"
-        rev: "nixos-unstable"
         compiler: "ghc8101"
         buildFromSdist: "true"
         linkWithGold: "true"

@@ -13,15 +13,13 @@ on:
 
 
 env:
-  useRev: "true"
   rev: "nixos-unstable"
   cachixAccount: "haskell-with-nixpkgs"
-  # GitHub secret
 
 
 jobs:
   build10:
-    name: NixOS-unstable, default GHC (8.8)
+    name: "NixOS-unstable, default GHC (8.8)"
     runs-on: macos-latest
     continue-on-error: true
     steps:
