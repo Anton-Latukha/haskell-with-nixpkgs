@@ -8,13 +8,14 @@ on:
     - cron: "45 02 * * *"
 jobs:
   build10:
-    name: GHC 8.10
+    name: GHC
     runs-on: ubuntu-latest
     continue-on-error: true
     # Template to build matrix of builds for subprojects in monorepo
     strategy:
       matrix:
         packageRoots: [ ./ ]
+        ghc: [ "8.10", "8.4" ]
     defaults:
       run:
         working-directory: ${{ matrix.packageRoots }}
@@ -22,8 +23,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-haskell@v1.1
         with:
-          ghc-version: "8.10"
-          # cabal-version: "3.0.0.0"
+          ghc-version: ${{ matrix.ghc }}
       - run: cabal v2-configure --disable-optimization --enable-tests
       - run: cabal v2-build
       - run: cabal v2-test
