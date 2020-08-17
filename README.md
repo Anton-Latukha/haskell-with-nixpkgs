@@ -5,6 +5,7 @@
 | [![Nixpkgs, Linux, GHCJS](https://github.com/Anton-Latukha/haskell-with-nixpkgs/workflows/Nixpkgs,%20Linux,%20GHCJS/badge.svg)](https://github.com/Anton-Latukha/haskell-with-nixpkgs/actions?query=branch%3Amaster+workflow%3A%22Nixpkgs%2C+Linux%2C+GHCJS%22)                |
 | [![Nixpkgs, macOS](https://github.com/Anton-Latukha/haskell-with-nixpkgs/workflows/Nixpkgs,%20macOS/badge.svg)](https://github.com/Anton-Latukha/haskell-with-nixpkgs/actions?query=branch%3Amaster+workflow%3A%22Nixpkgs%2C+macOS%22)                                         |
 | [![Hackage, Cabal, Linux](https://github.com/Anton-Latukha/haskell-with-nixpkgs/workflows/Hackage,%20Cabal,%20Linux/badge.svg)](https://github.com/Anton-Latukha/haskell-with-nixpkgs/actions?query=branch%3Amaster+workflow%3A%22Hackage%2C+Cabal%2C+Linux%22)                |
+| [![Travis Nixpkgs CI](https://img.shields.io/travis/com/haskell-nix/haskell-with-nixpkgs?label=Travis%20Nixpkgs%20CI&logo=Travis)](https://travis-ci.com/github/haskell-nix/haskell-with-nixpkgs)                                                                                                                                                                       |
 
 Drop-in configuration and easy instructions to integrate Haskell projects with Nix and Nixpkgs software ecosystem.
 Provides Nixpkgs Haskell Lib API.
