@@ -1,4 +1,4 @@
-{ rpRef ? "ea3c9a1536a987916502701fb6d319a880fdec96" }:
+{ rpRef ? "df0bdcca5eb2a3236ec0496e4430d91876b29cf5" }:
 
 let rp = builtins.fetchTarball "https://github.com/reflex-frp/reflex-platform/archive/${rpRef}.tar.gz";
 
@@ -12,9 +12,9 @@ in
     packages = {
       hnix = ../.;
     };
-    
+
     shells = {
       ghcjs = [ "hnix" ];
     };
-  
+
   })
