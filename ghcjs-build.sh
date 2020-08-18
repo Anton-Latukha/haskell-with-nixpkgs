@@ -100,14 +100,7 @@ fi
 
 MAIN() {
 
-
-# Overall it is useful to have in CI test builds the latest stable Nix
-(nix-channel --update && nix-env -u) || (sudo nix upgrade-nix) || true
-
-
-# Report the Nixpkgs channel revision
-nix-instantiate --eval -E 'with import <nixpkgs> {}; lib.version or lib.nixpkgsVersion'
-
+./upd-nix.sh
 
 # Secrets are not shared to PRs from forks
 # nix-build | cachix push <account> - uploads binaries, runs&works only in the branches of the main repository, so for PRs - else case runs
