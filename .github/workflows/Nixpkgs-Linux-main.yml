@@ -67,7 +67,9 @@ jobs:
     - name: Git checkout
       uses: actions/checkout@v2
     - name: Install Nix
-      uses: cachix/install-nix-action@v10
+      uses: cachix/install-nix-action@v11
+      with:
+        nix_path: "nixpkgs=channel:${{ env.rev }}"
     - name: Install Cachix
       uses: cachix/cachix-action@v6
       with:
@@ -89,7 +91,9 @@ jobs:
     - name: Git checkout
       uses: actions/checkout@v2
     - name: Install Nix
-      uses: cachix/install-nix-action@v10
+      uses: cachix/install-nix-action@v11
+      with:
+        nix_path: "nixpkgs=channel:${{ env.rev }}"
     - name: Install Cachix
       uses: cachix/cachix-action@v6
       with:
@@ -115,19 +119,21 @@ jobs:
   build30:
     name: "NixOS 20.03 stable channel, default GHC (8.8)"
     runs-on: ubuntu-latest
+    env:
+      rev: "nixos-20.03"
     steps:
     - name: Git checkout
       uses: actions/checkout@v2
     - name: Install Nix
-      uses: cachix/install-nix-action@v10
+      uses: cachix/install-nix-action@v11
+      with:
+        nix_path: "nixpkgs=channel:${{ env.rev }}"
     - name: Install Cachix
       uses: cachix/cachix-action@v6
       with:
         name: ${{ env.cachixAccount }}
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
     - name: Determined Nix-build
-      env:
-        rev: "nixos-20.03"
       run: ./build.sh
 
 
@@ -140,7 +146,9 @@ jobs:
     - name: Git checkout
       uses: actions/checkout@v2
     - name: Install Nix
-      uses: cachix/install-nix-action@v10
+      uses: cachix/install-nix-action@v11
+      with:
+        nix_path: "nixpkgs=channel:${{ env.rev }}"
     - name: Install Cachix
       uses: cachix/cachix-action@v6
       with:
