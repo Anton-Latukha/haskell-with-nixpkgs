@@ -21,16 +21,16 @@ jobs:
     runs-on: ubuntu-latest
     continue-on-error: true
     steps:
-    - name: Git checkout
+    - name: "Git checkout"
       uses: actions/checkout@v2
-    - name: Install Nix
+    - name: "Install Nix"
       uses: cachix/install-nix-action@v11
       with:
         nix_path: "nixpkgs=channel:${{ env.rev }}"
-    - name: Install Cachix
+    - name: "Install Cachix"
       uses: cachix/cachix-action@v6
       with:
         name: ${{ env.cachixAccount }}
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
-    - name: Determined Nix-build
+    - name: "Determined Nix-build"
       run: ./ghcjs-build.sh

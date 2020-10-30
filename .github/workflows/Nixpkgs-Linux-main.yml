@@ -27,7 +27,7 @@ env:
   rev: "nixos-unstable"
   # Project Cachix account
   cachixAccount: "haskell-with-nixpkgs"
-  CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
+  CACHIX_SIGNING_KEY: "${{ secrets.CACHIX_SIGNING_KEY }}"
   allowInconsistentDependencies: "false"
   doJailbreak: "false"
   doCheck: "true"
@@ -64,19 +64,19 @@ jobs:
     name: "NixOS-unstable channel, default GHC (8.8)"
     runs-on: ubuntu-latest
     steps:
-    - name: Git checkout
+    - name: "Git checkout"
       uses: actions/checkout@v2
-    - name: Install Nix
+    - name: "Install Nix"
       uses: cachix/install-nix-action@v11
       with:
         nix_path: "nixpkgs=channel:${{ env.rev }}"
-    - name: Install Cachix
+    - name: "Install Cachix"
       uses: cachix/cachix-action@v6
       with:
-        name: ${{ env.cachixAccount }}
-        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
-    - name: Determined Nix-build
-      run: ./build.sh
+        name: "${{ env.cachixAccount }}"
+        signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
+    - name: "Determined Nix-build"
+      run: "./build.sh"
 
 
   # NOTE: Example of customization using Nixpkgs Haskell Lib API
@@ -88,18 +88,18 @@ jobs:
       matrix:
         packageRoots: [ ./ ]
     steps:
-    - name: Git checkout
+    - name: "Git checkout"
       uses: actions/checkout@v2
-    - name: Install Nix
+    - name: "Install Nix"
       uses: cachix/install-nix-action@v11
       with:
         nix_path: "nixpkgs=channel:${{ env.rev }}"
-    - name: Install Cachix
+    - name: "Install Cachix"
       uses: cachix/cachix-action@v6
       with:
-        name: ${{ env.cachixAccount }}
-        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
-    - name: Determined Nix-build
+        name: "${{ env.cachixAccount }}"
+        signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
+    - name: "Determined Nix-build"
       env:
         compiler: "ghc8101"
         buildFromSdist: "true"
@@ -111,8 +111,8 @@ jobs:
         doBenchmark: "true"
         generateOptparseApplicativeCompletions: "false"
         # packageRoot for CI builds can be just a paths, since CI uses remote Git repo that is already filtered with local .gitignore's
-        packageRoot: ${{ matrix.packageRoots }}
-      run: ./build.sh
+        packageRoot: "${{ matrix.packageRoots }}"
+      run: "./build.sh"
 
 
   # NOTE: Build on latest stable NixOS release
@@ -122,19 +122,19 @@ jobs:
     env:
       rev: "nixos-20.03"
     steps:
-    - name: Git checkout
+    - name: "Git checkout"
       uses: actions/checkout@v2
-    - name: Install Nix
+    - name: "Install Nix"
       uses: cachix/install-nix-action@v11
       with:
         nix_path: "nixpkgs=channel:${{ env.rev }}"
-    - name: Install Cachix
+    - name: "Install Cachix"
       uses: cachix/cachix-action@v6
       with:
-        name: ${{ env.cachixAccount }}
-        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
-    - name: Determined Nix-build
-      run: ./build.sh
+        name: "${{ env.cachixAccount }}"
+        signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
+    - name: "Determined Nix-build"
+      run: "./build.sh"
 
 
   # NOTE: This would additionally test that the Nix shell customization of the project works.
@@ -143,20 +143,20 @@ jobs:
     name: "Nix-shell & supplied locall project Hoogle DB"
     runs-on: ubuntu-latest
     steps:
-    - name: Git checkout
+    - name: "Git checkout"
       uses: actions/checkout@v2
-    - name: Install Nix
+    - name: "Install Nix"
       uses: cachix/install-nix-action@v11
       with:
         nix_path: "nixpkgs=channel:${{ env.rev }}"
-    - name: Install Cachix
+    - name: "Install Cachix"
       uses: cachix/cachix-action@v6
       with:
-        name: ${{ env.cachixAccount }}
-        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
-    - name: Nix-shell
+        name: "${{ env.cachixAccount }}"
+        signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
+    - name: "Nix-shell"
       run: nix-shell --pure --command 'echo "Evaluated, loaded and entered $IN_NIX_SHELL Nix shell env."'
-    - name: Local Hoogle DB for the project development and tooling
+    - name: "Local Hoogle DB for the project development and tooling"
       run: nix-shell --pure --command 'hoogle True'
 
 
